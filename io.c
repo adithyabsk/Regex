@@ -17,6 +17,15 @@ void readStdIn(Array *lines)
 	}
 }
 
+void dummyString(Array *lines)
+{
+	insertArray(lines, "Fuelpipline.py");
+	insertArray(lines, "ftuels.bag");
+	insertArray(lines, "storePos.csv");
+	insertArray(lines, "test2.png");
+	insertArray(lines, "test.png");
+}
+
 void initArray(Array *a, size_t initialSize) {
 	a->array = (char **)malloc(initialSize * sizeof(char) * 100);
 	a->used = 0;
@@ -50,8 +59,8 @@ void grepCheck(Array *a, char* search) {
 	for (int i = 0; i < a->size; i++)
 	{
 		// Replace true with ALEX_MAGIC_FUNCTION(lines[i], search)
-		if(callRegex(search, lines[i])) printf("%s", a->array[i]);
 		if(a->array[i] == NULL) break;
+		if(callRegex(search, a->array[i])) printf("%s\n", a->array[i]);
 	}
 }
 

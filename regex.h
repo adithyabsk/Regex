@@ -1,12 +1,12 @@
 #ifndef RGX_H
 #define RGX_H
 
-void checkLiterals(char* reg, char* target, char* new);
-void checkClasses(char* reg, char* target, char* new);
+bool checkLiterals(char* reg, char** target, char** new, int li);
+bool checkClasses(char* reg, char** target, char** new);
 bool callRegex(char* reg, char* text);
 bool parseReg(char* reg, char* text);
-char* getTarget(char* reg, char* new);
-bool checkTarget(char c, char* t);
+char* getTarget(char* reg, char** new, int li);
+bool checkTarget(char c, char* t, int* lastIndex);
 
 
 #endif

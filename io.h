@@ -10,6 +10,7 @@ typedef struct {
 char** searchFiles(char** dir, bool recurse);
 char** readFiles(char** dir);
 void readStdIn(Array *lines);
+void dummyString(Array *lines);
 
 void initArray(Array *a, size_t initialSize);
 void insertArray(Array *a, char* element);

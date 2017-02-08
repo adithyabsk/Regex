@@ -26,10 +26,10 @@ int main(int argc, char **argv)
 {
 	bool shouldReadStdIn = true;
 	char search[100];
-	if (argc == 1) exit(0); // Add some error message
-	else if (argc == 2); // Do nothing
-	else if (argc > 2 && !strcmp("-r", argv[2])) shouldReadStdIn = false;
-	else exit(0); // Add some error message
+	//if (argc == 1) exit(0); // Add some error message
+	//else if (argc == 2); // Do nothing
+	//else if (argc > 2 && !strcmp("-r", argv[2])) shouldReadStdIn = false;
+	//else exit(0); // Add some error message
 
 	strcpy (search, argv[1]);
 	Array lines;
@@ -40,10 +40,11 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		puts(search);
+		// puts(search);
 		// Read from stdIn
 		initArray(&lines, 1);
-		readStdIn(&lines);
+	  	readStdIn(&lines);
+		//dummyString(&lines);
 		// printArray(&lines);
 		grepCheck(&lines, search);
 		freeArray(&lines);
