@@ -3,8 +3,8 @@
 #include <string.h>	/* for strlen */
 #include <stdbool.h>
 
+#include "regex.h"
 #include "io.h"
-#include "grep.h"
 
 void readStdIn(Array *lines)
 {
@@ -50,7 +50,7 @@ void grepCheck(Array *a, char* search) {
 	for (int i = 0; i < a->size; i++)
 	{
 		// Replace true with ALEX_MAGIC_FUNCTION(lines[i], search)
-		if(true) printf("%s", a->array[i]);
+		if(callRegex(search, lines[i])) printf("%s", a->array[i]);
 		if(a->array[i] == NULL) break;
 	}
 }
