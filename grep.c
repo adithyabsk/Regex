@@ -3,6 +3,13 @@
 #include <string.h>	/* for strlen */
 #include <stdbool.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <err.h>
+#include <fts.h>
+
+#include "io.h"
+
 // Grep Wildcard functionality
 // DataStructures Final: Dr. Morrison
 
@@ -13,84 +20,33 @@
 // 12:00pm 2-7-17: Initial Commit with base structure (Alexander)
 // 3:30pm 2-7-17: Read from standard in, add to data structre is broken (Alexander & Adithya)
 
-typedef struct {
-  char **array;
-  size_t used;
-  size_t size;
-} Array;
-
-char** searchFiles(char** dir, bool recurse);
-char** readFiles(char** dir);
-void readStdIn(Array *lines);
-char** wildcard(char **data, char *com, bool lines);
-
-void initArray(Array *a, size_t initialSize);
-void insertArray(Array *a, char* element);
-void freeArray(Array *a);
-void printArray(Array *a);
+static int ptree(char * const argv[]);
 
 int main(int argc, char **argv)
 {
+	bool shouldReadStdIn = true;
+	char search[100];
+	if (argc == 1) exit(0); // Add some error message
+	else if (argc == 2); // Do nothing
+	else if (argc > 2 && !strcmp("-r", argv[2])) shouldReadStdIn = false;
+	else exit(0); // Add some error message
+
+	strcpy (search, argv[1]);
 	Array lines;
-	initArray(&lines, 1);
 
-	readStdIn(&lines);
-	printArray(&lines);
+	if (!shouldReadStdIn)
+	{
+		//search file system
+	}
+	else
+	{
+		puts(search);
+		// Read from stdIn
+		initArray(&lines, 1);
+		readStdIn(&lines);
+		// printArray(&lines);
+		grepCheck(&lines, search);
+		freeArray(&lines);
+	}
 	return 0;
-}
-
-char** searchFiles(char** dir, bool recurse)
-{
-
-}
-
-char** readFiles(char** dir)
-{
-
-}
-
-void readStdIn(Array *lines)
-{
-	char *line = NULL;
-	size_t size;
-	// char dst[100];
-
-	while (getline(&line, &size, stdin) != -1) {
-		insertArray(lines, line);
-		line = NULL;
-	}
-}
-
-char** wildcard(char **data, char *com, bool lines)
-{
-
-}
-
-void initArray(Array *a, size_t initialSize) {
-	a->array = (char **)malloc(initialSize * sizeof(char) * 100);
-	a->used = 0;
-	a->size = initialSize;
-}
-
-void insertArray(Array *a, char* element) {
-	// a->used is the number of used entries, because a->array[a->used++] updates a->used only *after* the array has been accessed.
-	// Therefore a->used can go up to a->size 
-	// printf("%s", element);
-	if (a->used == a->size) {
-		a->size *= 2;
-		a->array = (char **)realloc(a->array, a->size * sizeof(char) * 100);
-	}
-	a->array[a->used++] = element;
-}
-
-void freeArray(Array *a) {
-	free(a->array);
-	a->array = NULL;
-	a->used = a->size = 0;
-}
-
-void printArray(Array *a) {
-	for(int i=0; i<a->size; i++){
-		if (a->array[i] != NULL)printf("%s", a->array[i]);
-	}
 }
